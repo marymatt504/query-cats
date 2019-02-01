@@ -1,16 +1,19 @@
-DROP DATABASE IF EXISTS test;
+DROP DATABASE IF EXISTS query_cats;
 
-CREATE DATABASE test;
+CREATE DATABASE query_cats;
 
-USE test;
+USE query_cats;
 
-CREATE TABLE items (
-  id int NOT NULL AUTO_INCREMENT,
-  quantity integer NOT NULL,
-  description varchar(50) NOT NULL,
-  PRIMARY KEY (ID)
+CREATE TABLE cats (
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  addedAt DATE DEFAULT GETDATE(),
+  breed VARCHAR(64),
+  birthdate DATE,
+  imageUrl VARCHAR(300),
+  lastSeenAt DATE DEFAULT GETDATE(),
+  name VARCHAR(32) NOT NULL,
+  password VARCHAR(32) NOT NULL,
+  username VARCHAR(32) NOT NULL,
+  weight FLOAT NOT NULL
 );
 
-/*  Execute this file from the command line by typing:
- *    mysql -u root < server/schema.sql
- *  to create the database and the tables.*/

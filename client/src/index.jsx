@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Nav from './components/Nav.jsx';
+import SignUpForm from './components/SignUpForm.jsx';
+
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      view: 'home'
     }
   }
 
@@ -26,9 +30,9 @@ class App extends React.Component {
   render() {
     return (<div>
 
-      App is rendering!
-      {/* <h1>Item List</h1>
-      <List items={this.state.items}/> */}
+      <Nav view={this.view} />
+      <SignUpForm />
+
     </div>)
   }
 }
