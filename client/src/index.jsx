@@ -9,7 +9,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'home'
+      view: 'home' // also 'dashboard'
     }
   }
 
@@ -27,13 +27,21 @@ class App extends React.Component {
     // });
   }
 
+
   render() {
-    return (<div>
 
-      <Nav view={this.view} />
-      <SignUpForm />
+    if (this.state.view === 'home') {
+      return (<div>
+        <Nav view={this.view} />
+        <SignUpForm />
+      </div>)
+    } else {
+      return (<div>
+        <Nav view={this.view} />
+        <Dashboard />
+      </div>)
+    }
 
-    </div>)
   }
 }
 

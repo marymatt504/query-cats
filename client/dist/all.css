@@ -1,0 +1,173 @@
+body, html{
+  margin:0;
+  padding:0;
+}
+
+body {
+  background-color: #DFE2D2; 
+  font-family: OpenSans, sans-serif;
+}
+
+p {
+  color: #323339;
+}
+
+p, .formComponent {
+  font-size: 100%;
+}
+
+.logo {
+  font-size: 150%;
+  color: honeydew;
+  padding: 1%;
+  display: flex;
+  flex-direction: row;
+}
+
+
+
+
+.logo img {
+  width: 10%;
+  height: 10%;
+}
+
+h2 {
+  font-size: 110%;
+  color: #F26968;
+}
+
+.heading {
+  padding-left: 3%;
+  padding-top: 2%;
+  font-size: 110%;
+  color: #F26968;
+  font-weight: bold;
+}
+
+.navBar {
+  background-color: #323339;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1%;
+}
+
+.loginForm {
+  padding: 1%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 25%;
+
+}
+
+@media (min-width: 768px) {
+  .loginForm {
+    padding: 1%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 75%;
+  }
+}
+
+.formComponent {
+  margin: 1%;
+  /* border-radius: 10%; */
+  background: white;
+}
+
+/* homePage */
+.intro, .form {
+  margin: 3%;
+}
+
+.form {
+  border-color: #323339;
+  border-style: solid;
+  padding-top: 0%;
+  padding-bottom: 2%;
+  padding-left: 2%;
+  padding-right: 2%;
+  background-color: honeydew;
+  max-width: 45%;
+  border-radius: 1%;
+}
+
+@media(max-width: 800px) {
+  .form {
+    border-color: #323339;
+    border-style: solid;
+    padding-top: 0%;
+    padding-bottom: 2%;
+    padding-left: 2%;
+    padding-right: 2%;
+    background-color: honeydew;
+    max-width: 90%;
+    border-radius: 1%;
+  }
+
+  .formComponent, .button {
+    background: white;
+  }
+}
+
+/*List Component */
+
+.listLogicContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 2%;
+}
+
+.listLogicModule {
+  border-color: #323339;
+  border-style: solid;
+  padding-top: 0%;
+  padding-bottom: 2%;
+  padding-left: 2%;
+  padding-right: 2%;
+  background-color: honeydew;
+  /* max-width: 45%; */
+  border-radius: 1%;
+  flex-grow: 1;
+  margin: 1.5%;
+}
+
+/* items to buy component*/
+.listItemContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.listItem {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  padding: .25em;
+}
+
+.closeBox {
+  background: white;
+  padding-left: .15em;
+  padding-right: .25em;
+  margin-left: .15em;
+  font-size: 50%;
+  font-weight: 900;
+}
+
+button {
+  background: white;
+  font-size: 90%;
+}
+
+.italic {
+  font-style: italic;
+}
