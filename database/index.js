@@ -24,8 +24,29 @@ const addCat = (username, password, breed, birthdate, imageUrl, name, weight, ca
       callback(null, results);
     }
   });
-
 };
+
+const getCatByUsername = (username, callback) => {
+  const queryStr = `SELECT * FROM cats WHERE username = ?`;
+  connection.query(queryStr, [username], (error, results) => {
+    if (error) {
+      callback(error);
+    } else {
+      callback(null, results);
+    }
+  });
+};
+
+const updateLastSeenAt = (id, callback) => {
+  const queryStr = `UPDATE cats SET lastSeenAt = NOW() where id = ?;`;
+  connection.query(queryStr, [id], (error, results) => {
+    if (error) {
+      callback(error);
+    } else {
+      callback(null, results);
+    }
+  });
+}
 
 
 // var selectAll = function (callback) {
@@ -38,4 +59,4 @@ const addCat = (username, password, breed, birthdate, imageUrl, name, weight, ca
 //   });
 // };
 
-module.exports = { addCat };
+module.exports = { addCat, getCatByUsername, updateLastSeenAt };

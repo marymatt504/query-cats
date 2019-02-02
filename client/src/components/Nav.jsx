@@ -7,7 +7,7 @@ class Nav extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: 'Email',
+      username: 'Username',
       password: 'Password'
     };
     this.handleChange = this.handleChange.bind(this);
@@ -16,7 +16,7 @@ class Nav extends React.Component {
   }
 
   clearInput(event) {
-    if (this['state'][event.target.name] === 'Email' || this['state'][event.target.name] === 'Password') {
+    if (this['state'][event.target.name] === 'Username' || this['state'][event.target.name] === 'Password') {
       this.setState({ [event.target.name]: '' });
     }
   }
@@ -26,16 +26,12 @@ class Nav extends React.Component {
 
   handleSubmit(event) {
 
-    axios.get(`/users/${this.state.email.toLowerCase()}`)
+    axios.put('/cat/login', {
+      username: this.state.username,
+      password: this.state.password
+    })
       .then(response => {
-
-        let salt = response.data[0].salt;
-        let storedPassword = response.data[0].password;
-
-        if (util.compareHash(this.state.password, storedPassword, salt)) {
-          this.props.updateUserId(response.data[0].id);
-          this.props.updateView('listDashboard');
-        }
+        this.props.updateView('dashboard');
       })
       .catch(function (error) {
         console.log(error);
@@ -44,24 +40,30 @@ class Nav extends React.Component {
   }
 
   render() {
+
+    console.log('this.props.view:', this.props.view);
+
     if (this.props.view === 'home') {
       return (
         <div className='navBar'>
+          
           <div className='logo'>
             <img src="https://s3.us-east-2.amazonaws.com/ticket-hogger/38-384690_cute-dog-and-cat-clip-art-cute-cat-clip-art-black-and.png" alt="cat clipart" />
             <div>
               <div>Find the Cats on QueryCats!</div>
             </div>
           </div>
+          
           <form className='loginForm' onSubmit={this.handleSubmit}>
             <label className='formComponent'>
-              <input onClick={this.clearInput} name='email' type="text" value={this.state.email} onChange={this.handleChange} />
+              <input onClick={this.clearInput} name='username' type="text" value={this.state.username} onChange={this.handleChange} />
             </label>
             <label className='formComponent'>
               <input onClick={this.clearInput} name='password' type="text" value={this.state.password} onChange={this.handleChange} />
             </label>
             <input className='formComponent' type="submit" value="Sign in" />
           </form>
+
         </div>
       )
     } else {

@@ -39,17 +39,17 @@ class App extends React.Component {
 
     if (this.state.view === 'home') {
       return (<div>
-        <Nav view={this.view} />
+        <Nav view={this.state.view} updateView={this.updateView}/>
         <SignUpForm updateView={this.updateView}/>
       </div>)
     } else if (this.state.view === 'dashboard') {
       return (<div>
-        <Nav view={this.view} />
+        <Nav view={this.state.view} />
         <Dashboard />
       </div>)
     } else {
       return (<div>
-        <Nav view={this.view} />
+        <Nav view={this.state.view} />
         <CatProfiles />
       </div>)
     }
