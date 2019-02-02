@@ -48,7 +48,7 @@ class Nav extends React.Component {
         <div className='navBar'>
           
           <div className='logo'>
-            <img src="https://s3.us-east-2.amazonaws.com/ticket-hogger/38-384690_cute-dog-and-cat-clip-art-cute-cat-clip-art-black-and.png" alt="cat clipart" />
+            <img src="https://s3.us-east-2.amazonaws.com/ticket-hogger/cat.png" alt="cat clipart" />
             <div>
               <div>Find the Cats on QueryCats!</div>
             </div>

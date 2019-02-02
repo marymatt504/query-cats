@@ -15,6 +15,7 @@ class App extends React.Component {
       cats: []
     }
     this.updateView = this.updateView.bind(this);
+    this.updateCats = this.updateCats.bind(this);
   }
 
   componentDidMount() {
@@ -35,6 +36,10 @@ class App extends React.Component {
     this.setState({ view });
   }
 
+  updateCats(cats) {
+    this.setState({ cats });
+  }
+
   render() {
 
     if (this.state.view === 'home') {
@@ -45,7 +50,7 @@ class App extends React.Component {
     } else if (this.state.view === 'dashboard') {
       return (<div>
         <Nav view={this.state.view} />
-        <Dashboard />
+        <Dashboard updateCats={this.updateCats}/>
       </div>)
     } else {
       return (<div>

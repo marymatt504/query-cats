@@ -29,22 +29,23 @@ class Dashboard extends React.Component {
       name: this.state.name.toLowerCase(),
       id: this.state.id,
     };
-
-    console.log('to be searched:', submission);
-
-    // GET REQUEST 
-    // axios.get('/cat/register', submission)
-    //   .then(() => {
-    //     this.props.updateView('dashboard');
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-      
+    console.log('to be searched:', submission);      
   }
 
   getRandom() {
-    console.log('will make random getrequest for cat');
+    // console.log('will make random getrequest for cat');
+    axios.get('/cats/random')
+      .then((results) => {
+        // save cats array to App state
+        // TO DO: CHECK WHAT RESULTS LOOKS LIKE AFTER WRITING ROUTE & METHOD!!!
+        this.props.updateCats(results);
+      })
+      .then(() => {
+        this.props.updateView('cat_profiles');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   render() {

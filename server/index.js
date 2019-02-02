@@ -54,31 +54,22 @@ app.put('/cat/login', (req, res) => {
   db.getCatByUsername(username, (err, results) => {
     if (err) {
       console.log(err);
-      res.status(500).send(err);
+      res.status(500).send('no such username');
     } else {
       let storedPassword = results[0].password;
       let salt = results[0].salt;
       let id = results[0].id;
 
-      console.log('salt:', salt);
-      console.log('password:', password)
-      console.log(util.compareHash(password, storedPassword, salt));
-
       if (util.compareHash(password, storedPassword, salt)) {
-        // if they are a match, 
-        // update the addedAt property to current timestamp
         db.updateLastSeenAt(id, (err, results) => {
           if (err) {
             console.log(error);
             res.status(500).send('error updating lastSeenAt');
           } else {
-            // successfully updated timestamp
             res.status(200).send('lastSeenAt updated');
           }
         })
-        // then send back success code
       } else {
-        // if not a match, send back err
         res.status(400).send('wrong password');
       }
     }
