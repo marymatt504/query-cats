@@ -10,31 +10,33 @@ const app = express();
 app.use(cookieParser());
 
 // set a cookie
-app.use(function (req, res, next) {
-  // check if client sent cookie
-  var cookie = req.cookies.cookieName;
-  if (cookie === undefined) {
-    // no: set a new cookie
-    var randomNumber = Math.random().toString();
-    randomNumber = randomNumber.substring(2, randomNumber.length);
-    res.cookie('cookieName', randomNumber, { maxAge: 1000 * 60 * 20, httpOnly: true });
-    console.log('cookie created successfully');
-  }
-  else {
-    // yes, cookie was already present 
-    console.log('cookie exists', cookie);
-  }
-  next(); // <-- important!
-});
+// app.use(function (req, res, next) {
+//   // check if client sent cookie
+//   var cookie = req.cookies.cookieName;
+//   if (cookie === undefined) {
+//     // no: set a new cookie
+//     var randomNumber = Math.random().toString();
+//     randomNumber = randomNumber.substring(2, randomNumber.length);
+//     res.cookie('cookieName', randomNumber, { maxAge: 1000 * 60 * 20, httpOnly: true });
+//     console.log('cookie created successfully');
+//   }
+//   else {
+//     // yes, cookie was already present 
+//     console.log('cookie exists', cookie);
+//   }
+//   next(); // <-- important!
+// });
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.post('/cat/register', (req, res) => {
-  let { username, password, breed, birthdate, imageUrl, name } = req.body;
-  db.addCat(username, password, breed, birthdate, imageUrl, name, (err, results) => {
+
+  console.log(req.body);
+  let { username, password, breed, birthdate, imageUrl, name, weight } = req.body;
+  db.addCat(username, password, breed, birthdate, imageUrl, name, weight, (err, results) => {
     if (err) {
-      res.sendStatus(500);
+      res.status(500).send(err.message);
     } else {
       res.status(201).send(results);
     }

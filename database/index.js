@@ -7,17 +7,17 @@ const mysql = require('mysql');
 const connection = mysql.createConnection({
   // host     : 'fill_In',
   // port: 'fill_In',
-  user: db.user,
-  password: db.password,
+  user: 'root',
+  // password: db.password,
   database: 'query_cats'
 });
 
-const addCat = (username, password, breed, birthdate, imageUrl, name, callback) => {
+const addCat = (username, password, breed, birthdate, imageUrl, name, weight, callback) => {
   let salt = utils.createRandom32String();
   let hash = utils.createHash(password, salt);
 
-  const queryStr = `INSERT INTO accounts (username, password, breed, birthdate, imageUrl, name, salt) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-  connection.query(queryStr, [username, hash, breed, birthdate, imageUrl, name, salt], (error, results) => {
+  const queryStr = `INSERT INTO cats (username, password, breed, birthdate, imageUrl, name, salt, weight) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+  connection.query(queryStr, [username, hash, breed, birthdate, imageUrl, name, salt, weight], (error, results) => {
     if (error) {
       callback(error);
     } else {
