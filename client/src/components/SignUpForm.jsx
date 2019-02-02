@@ -10,7 +10,7 @@ class SignUpForm extends React.Component {
       password: '8 character min',
       breed: '',
       birthdate: '',
-      imgUrl: '',
+      imageUrl: '',
       name: '',
       weight: ''
     };
@@ -26,36 +26,33 @@ class SignUpForm extends React.Component {
   }
 
   clearInput(event) {
-    // if (this['state'][event.target.name] === 'Password') {
+    if (this['state'][event.target.name] === '8 character min') {
       this.setState({ [event.target.name]: '' });
-    // }
+    }
   }
 
   handleSubmit(event) {
-
-    console.log('registration submitted!')
-    // * remember to turn weight from string to number
-    // axios.post('/cat/register', {
-    //   username: this.state.email.toLowerCase(),
-    //   password: this.state.password
-    // })
-    //   // will also need to return an authorization token
-    //   .then(response => {
-    //     let user_id = response.data.rows[0].id;
-    //     this.props.updateUserId(user_id);
-    //   })
-    //   .then(() => {
-    //     this.props.updateView('dashboard');
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-
     event.preventDefault();
-  }
 
-  // form validation to do
-  // only match for numbers in weight
+    let submission = {
+      username: this.state.username.toLowerCase(),
+      password: this.state.password,
+      name: this.state.name.toLowerCase(),
+      weight: this.state.weight,
+      breed: this.state.breed.toLowerCase(),
+      birthdate: this.state.birthdate,
+      imageUrl: this.state.imageUrl,
+    };
+
+    axios.post('/cat/register', submission)
+      .then(() => {
+        this.props.updateView('dashboard');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      
+  }
 
   render() {
     return (
@@ -83,7 +80,7 @@ class SignUpForm extends React.Component {
         <label className='label'>
           <div>
             {`Birthdate: `}
-            <input name='birthdate' type="text" value={this.state.birthdate} onChange={this.handleChange} />
+            <input name='birthdate' type="date" onClick={this.clearInput} value={this.state.birthdate} onChange={this.handleChange} />
           </div>
         </label>
         <label className='label'>

@@ -31,11 +31,19 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 app.post('/cat/register', (req, res) => {
 
-  console.log(req.body);
   let { username, password, breed, birthdate, imageUrl, name, weight } = req.body;
+
+  const setToNullIfEmpty = val => val === '' ? null : val;
+
+  // to refactor: could avoid repeating and call on all properties in req.body
+  imageUrl = setToNullIfEmpty(imageUrl);
+  birthdate = setToNullIfEmpty(birthdate);
+  breed = setToNullIfEmpty(breed);
+
   db.addCat(username, password, breed, birthdate, imageUrl, name, weight, (err, results) => {
     if (err) {
-      res.status(500).send(err.message);
+      console.log(err);
+      res.status(500).send(err);
     } else {
       res.status(201).send(results);
     }

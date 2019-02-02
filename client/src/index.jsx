@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Nav from './components/Nav.jsx';
 import SignUpForm from './components/SignUpForm.jsx';
+import Dashboard from './components/Dashboard.jsx';
+import CatProfiles from './components/CatProfiles.jsx';
 
 
 
@@ -9,8 +11,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'home' // also 'dashboard'
+      view: 'home', // also 'dashboard' and 'cat_profiles'
+      cats: []
     }
+    this.updateView = this.updateView.bind(this);
   }
 
   componentDidMount() {
@@ -27,18 +31,26 @@ class App extends React.Component {
     // });
   }
 
+  updateView(view) {
+    this.setState({ view });
+  }
 
   render() {
 
     if (this.state.view === 'home') {
       return (<div>
         <Nav view={this.view} />
-        <SignUpForm />
+        <SignUpForm updateView={this.updateView}/>
+      </div>)
+    } else if (this.state.view === 'dashboard') {
+      return (<div>
+        <Nav view={this.view} />
+        <Dashboard />
       </div>)
     } else {
       return (<div>
         <Nav view={this.view} />
-        <Dashboard />
+        <CatProfiles />
       </div>)
     }
 
