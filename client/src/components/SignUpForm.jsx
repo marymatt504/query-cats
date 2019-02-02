@@ -7,20 +7,28 @@ class SignUpForm extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: '',
+      password: '8 character min',
       breed: '',
       birthdate: '',
       imgUrl: '',
       name: '',
-      weight: 'in lbs'
+      weight: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.clearInput = this.clearInput.bind(this);
+
   }
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
+  }
+
+  clearInput(event) {
+    // if (this['state'][event.target.name] === 'Password') {
+      this.setState({ [event.target.name]: '' });
+    // }
   }
 
   handleSubmit(event) {
@@ -52,17 +60,18 @@ class SignUpForm extends React.Component {
   render() {
     return (
       <form className='form' onSubmit={this.handleSubmit}>
-        <h2>Create an account</h2>
+        <h2>Register</h2>
+        <p>*denotes required fields</p>
         <label className='label'>
           <div>
-            {`Username: `}
-            <input name='username' type="text" value={this.state.username} onChange={this.handleChange} />
+            {`*Username: `}
+            <input required name='username' type="text" value={this.state.username} onChange={this.handleChange} />
           </div>
         </label>
         <label className='label'>
           <div>
-            {`Password: `}
-            <input name='password' type="text" value={this.state.password} onChange={this.handleChange} />
+            {`*Password: `}
+            <input pattern=".{8,}" title='8 character minimum' required name='password' onClick={this.clearInput} type="text" value={this.state.password} onChange={this.handleChange} />
           </div>
         </label>
         <label className='label'>
@@ -85,14 +94,15 @@ class SignUpForm extends React.Component {
         </label>
         <label className='label'>
           <div>
-            {`Cat's Name: `}
-            <input name='name' type="text" value={this.state.name} onChange={this.handleChange} />
+            {`*Cat's Name: `}
+            <input required name='name' type="text" value={this.state.name} onChange={this.handleChange} />
           </div>
         </label>
         <label className='label'>
           <div>
-            {`Weight: `}
-            <input name='weight' type="text" value={this.state.weight} onChange={this.handleChange} />
+            {`*Weight: `}
+            <input required name='weight' type="number" value={this.state.weight} onChange={this.handleChange} />
+            in lbs
           </div>
         </label>
         <input type="submit" className="formComponent" value="Register" />
