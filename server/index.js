@@ -65,8 +65,33 @@ app.post('/cat/register', (req, res) => {
   })
 });
 
+// PROB DELETE
+// // check to see if sesionToken is already in the session database
+// db.findSession(sessionToken, (err, results) => {
+//   if (err) {
+//     res.status(500).send(err);
+//   } else {
+//     // if the token is already in the session table
+//     if (results.length) {
+//       db.updateLastSeenAt(id, (err, results) => {
+//         if (err) {
+//           console.log(error);
+//           res.status(500).send('error updating lastSeenAt');
+//         } else {
+//           res.status(200).send('lastSeenAt updated');
+//         }
+//       });
+//     } else {
+//       // token was not in database
+//     }
+//   }
+    
+// });
 app.put('/cat/login', (req, res) => {
   let {username, password} = req.body;
+  let sessionToken = req.cookies.cookieName;
+
+  // could set up differently... if token is in the session db, don't need to check pw
 
   db.getCatByUsername(username, (err, results) => {
     if (err) {
@@ -83,7 +108,25 @@ app.put('/cat/login', (req, res) => {
             console.log(error);
             res.status(500).send('error updating lastSeenAt');
           } else {
-            res.status(200).send('lastSeenAt updated');
+            // if sessionToken not already in session table, shoudl add it
+            db.findSession(sessionToken, (err, results) => {
+              if (err) {
+                res.status(500).send('failed on session lookup');
+              } else {
+                if (!results.length) {
+                  db.createSession(id, sessionToken, (err, results) => {
+                    if (err) {
+                      res.status(500).send('failed creating session');
+                    } else {
+                      res.status(200).send();
+                    }
+                  });
+                }
+                // if session token alreayd there, still need to send back resposne
+                res.status(200).send();
+              }
+            });
+            //res.status(200).send('lastSeenAt updated');
           }
         })
       } else {
