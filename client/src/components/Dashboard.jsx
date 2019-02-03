@@ -12,7 +12,7 @@ class Dashboard extends React.Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.search = this.search.bind(this);
     this.getRandom = this.getRandom.bind(this);
 
   }
@@ -21,7 +21,7 @@ class Dashboard extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  handleSubmit(event) {
+  search(event) {
     event.preventDefault();
 
     let submission = {
@@ -48,7 +48,7 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div>
-        <form className='form' onSubmit={this.handleSubmit}>
+        <form className='form' onSubmit={this.search}>
           <h2>Search for Cats</h2>
           <label className='label'>
             <div>
@@ -68,7 +68,7 @@ class Dashboard extends React.Component {
               <input required name='id' type="number" value={this.state.id} onChange={this.handleChange} />
             </div>
           </label>
-          <input type="submit" className="formComponent" value="Register" />
+          <input type="submit" className="formComponent" value="Search" />
         </form>
         <button className='findButton' onClick={this.getRandom}>Find a Random Cat</button>
       </div>

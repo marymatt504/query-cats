@@ -15,7 +15,7 @@ class CatProfiles extends React.Component {
         Cat Profiles
         <div className='listItemContainer'>
           {this.props.cats.map(catObj => {
-            return <div className='listItem' key={catObj.id}><img src={catObj.imageUrl} alt='cat image'/><span>Name: {catObj.name}</span><span>Breed: {catObj.breed}</span></div>
+            return <div className='listItem' key={catObj.id}><img src={catObj.imageUrl} alt='cat image'/><span className='label'> Name: {catObj.name} </span><span className='label'> Breed: {catObj.breed}</span></div>
           })}
         </div>
 
