@@ -65,28 +65,6 @@ app.post('/cat/register', (req, res) => {
   })
 });
 
-// PROB DELETE
-// // check to see if sesionToken is already in the session database
-// db.findSession(sessionToken, (err, results) => {
-//   if (err) {
-//     res.status(500).send(err);
-//   } else {
-//     // if the token is already in the session table
-//     if (results.length) {
-//       db.updateLastSeenAt(id, (err, results) => {
-//         if (err) {
-//           console.log(error);
-//           res.status(500).send('error updating lastSeenAt');
-//         } else {
-//           res.status(200).send('lastSeenAt updated');
-//         }
-//       });
-//     } else {
-//       // token was not in database
-//     }
-//   }
-    
-// });
 app.put('/cat/login', (req, res) => {
   let {username, password} = req.body;
   let sessionToken = req.cookies.cookieName;
@@ -137,30 +115,26 @@ app.put('/cat/login', (req, res) => {
 });
 
 const isAuthenticated = (req, res, next) => {
-
   let token = req.cookies.cookieName;
-  // check if token is in the sessions table of the database
-
-  if (true) {
-    return next();
-  }
-
-  // IF doesn't correspond to a session in the db, redirect to login
-  res.redirect('/');
+  db.findSession(token, (err, results) => {
+    // if does not return a session, redirect to homepage for login
+    if (!results.length) {
+      res.redirect('/');
+    } else {
+      return next();
+    }
+  });
 }
 
 
-app.get('/cats/random', (req, res) => {
-  
-  res.send('token:', token);
-
-  // db.getRandomCat((err, data) => {
-  //   if (err) {
-  //     res.sendStatus(500);
-  //   } else {
-  //     res.json(data);
-  //   }
-  // });
+app.get('/cats/random', isAuthenticated, (req, res) => {
+  db.getRandomCat((err, data) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.json(data);
+    }
+  });
 });
 
 app.listen(3001, function () {

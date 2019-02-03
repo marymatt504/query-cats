@@ -33,12 +33,9 @@ class Dashboard extends React.Component {
   }
 
   getRandom() {
-    // console.log('will make random getrequest for cat');
     axios.get('/cats/random')
       .then((results) => {
-        // save cats array to App state
-        // TO DO: CHECK WHAT RESULTS LOOKS LIKE AFTER WRITING ROUTE & METHOD!!!
-        this.props.updateCats(results);
+        this.props.updateCats(results.data);
       })
       .then(() => {
         this.props.updateView('cat_profiles');
