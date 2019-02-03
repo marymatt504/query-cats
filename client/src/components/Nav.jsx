@@ -32,6 +32,7 @@ class Nav extends React.Component {
     })
       .then(response => {
         this.props.updateView('dashboard');
+        this.props.updateLoginStatus(true);
       })
       .catch(function (error) {
         console.log(error);

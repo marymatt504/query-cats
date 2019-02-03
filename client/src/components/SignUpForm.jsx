@@ -47,6 +47,7 @@ class SignUpForm extends React.Component {
     axios.post('/cat/register', submission)
       .then(() => {
         this.props.updateView('dashboard');
+        this.props.updateLoginStatus(true);
       })
       .catch(function (error) {
         console.log(error);

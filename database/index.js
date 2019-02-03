@@ -26,6 +26,7 @@ const addCat = (username, password, breed, birthdate, imageUrl, name, weight, ca
   });
 };
 
+
 const getCatByUsername = (username, callback) => {
   const queryStr = `SELECT * FROM cats WHERE username = ?`;
   connection.query(queryStr, [username], (error, results) => {
@@ -59,6 +60,38 @@ const getRandomCat = callback => {
   });
 };
 
+const createSession = (user_id, token, callback) => {
+  const queryStr = 'INSERT INTO sessions (user_id, token) VALUES (?, ?)';
+  connection.query(queryStr, [user_id, token], (error, results) => {
+    if (error) {
+      callback(error);
+    } else {
+      callback(null, results);
+    }
+  });
+};
+
+const findSession = (token, callback) => {
+  const queryStr = 'SELECT * FROM sessions WHERE token = ?';
+  connection.query(queryStr, [token], (error, results) => {
+    if (error) {
+      callback(error);
+    } else {
+      callback(null, results);
+    }
+  });
+};
+
+const getUserId = callback => {
+  const queryStr = 'SELECT LAST_INSERT_ID()';
+  connection.query(queryStr, [], (error, results) => {
+    if (error) {
+      callback(error);
+    } else {
+      callback(null, results);
+    }
+  });
+};
 
         // if not a match, send back err
 // var selectAll = function (callback) {
@@ -71,4 +104,4 @@ const getRandomCat = callback => {
 //   });
 // };
 
-module.exports = { addCat, getCatByUsername, updateLastSeenAt };
+module.exports = { addCat, getCatByUsername, updateLastSeenAt, getRandomCat, createSession, findSession, getUserId };

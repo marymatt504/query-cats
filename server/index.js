@@ -43,7 +43,24 @@ app.post('/cat/register', (req, res) => {
       console.log(err);
       res.status(500).send(err);
     } else {
-      res.status(201).send(results);
+      db.getUserId((err, results) => {
+        if (err) {
+          console.log('couldnt get userId');
+          res.status(500).send(err);
+        } else {
+          let user_id = results[0]['LAST_INSERT_ID()'];
+          let sessionToken = req.cookies.cookieName;
+          console.log(sessionToken);
+          db.createSession(user_id, sessionToken, (err, results) => {
+            if (err) {
+              console.log(err);
+              res.status(500).send('failed to create session record');
+            } else {
+              res.status(201).send(results);
+            }
+          });
+        }
+      })
     }
   })
 });
@@ -74,18 +91,34 @@ app.put('/cat/login', (req, res) => {
       }
     }
   });
-
 });
 
-// app.get('/items', function (req, res) {
-//   items.selectAll(function (err, data) {
-//     if (err) {
-//       res.sendStatus(500);
-//     } else {
-//       res.json(data);
-//     }
-//   });
-// });
+const isAuthenticated = (req, res, next) => {
+
+  let token = req.cookies.cookieName;
+  // check if token is in the sessions table of the database
+
+  if (true) {
+    return next();
+  }
+
+  // IF doesn't correspond to a session in the db, redirect to login
+  res.redirect('/');
+}
+
+
+app.get('/cats/random', (req, res) => {
+  
+  res.send('token:', token);
+
+  // db.getRandomCat((err, data) => {
+  //   if (err) {
+  //     res.sendStatus(500);
+  //   } else {
+  //     res.json(data);
+  //   }
+  // });
+});
 
 app.listen(3001, function () {
   console.log('listening on port 3001!');

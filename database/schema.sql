@@ -18,8 +18,11 @@ CREATE TABLE cats (
   weight FLOAT NOT NULL
 );
 
--- CREATE TABLE sessions (
---   session_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
---   cat_id INT NOT NULL FOREIGN KEY(cats);
--- );
+CREATE TABLE sessions (
+  session_id INT NOT NULL AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  token VARCHAR(64) NOT NULL,
+  PRIMARY KEY (session_id),
+  FOREIGN KEY (user_id) REFERENCES cats(id)
+);
 
