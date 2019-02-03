@@ -12,15 +12,12 @@ class CatProfiles extends React.Component {
     // console.log(this.props.cats);
     return (
       <div className='listLogicModule'>
-        Cat Profiles will be here.
-        {/* <p>Your Current Shopping List</p>
-        <p>Select from previously purchased or type in items to add.</p>
-        {/* {map over this.props.items and return a smaller div w/ spans for item} */}
+        Cat Profiles
         <div className='listItemContainer'>
-          {this.props.items.map(itemObj => {
-            return <span className='listItem' key={itemObj.id}><input type='checkbox' className='checkBox' /><span>{itemObj.name}</span><button className='closeBox'>X</button></span>
+          {this.props.cats.map(catObj => {
+            return <div className='listItem' key={catObj.id}><img src={catObj.imageUrl} alt='cat image'/><span>Name: {catObj.name}</span><span>Breed: {catObj.breed}</span></div>
           })}
-        </div> */}
+        </div>
 
       </div>
     )

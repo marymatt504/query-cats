@@ -12,12 +12,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       view: 'home', // also 'dashboard' and 'cat_profiles'
-      cats: [],
-      loggedIn: false
+      cats: []
     }
     this.updateView = this.updateView.bind(this);
     this.updateCats = this.updateCats.bind(this);
-    this.updateLoginStatus = this.updateLoginStatus.bind(this);
   }
 
   componentDidMount() {
@@ -42,26 +40,22 @@ class App extends React.Component {
     this.setState({ cats });
   }
 
-  updateLoginStatus(status) {
-    this.setState({loggedIn: status});
-  }
-
   render() {
 
     if (this.state.view === 'home') {
       return (<div>
         <Nav view={this.state.view} updateView={this.updateView} />
-        <SignUpForm updateView={this.updateView} updateLoginStatus={this.updateLoginStatus}/>
+        <SignUpForm updateView={this.updateView}/>
       </div>)
     } else if (this.state.view === 'dashboard') {
       return (<div>
         <Nav view={this.state.view} />
-        <Dashboard updateCats={this.updateCats}/>
+        <Dashboard updateCats={this.updateCats} updateView={this.updateView}/>
       </div>)
     } else {
       return (<div>
         <Nav view={this.state.view} />
-        <CatProfiles />
+        <CatProfiles cats={this.state.cats}/>
       </div>)
     }
 
