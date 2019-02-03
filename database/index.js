@@ -46,9 +46,21 @@ const updateLastSeenAt = (id, callback) => {
       callback(null, results);
     }
   });
-}
+};
+
+const getRandomCat = callback => {
+  const queryStr = 'SELECT * FROM cats ORDER BY RAND() LIMIT 1';
+  connection.query(queryStr, [], (error, results) => {
+    if (error) {
+      callback(error);
+    } else {
+      callback(null, results);
+    }
+  });
+};
 
 
+        // if not a match, send back err
 // var selectAll = function (callback) {
 //   connection.query('SELECT * FROM items', function (err, results, fields) {
 //     if (err) {
