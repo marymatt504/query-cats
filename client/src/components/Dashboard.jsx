@@ -24,12 +24,23 @@ class Dashboard extends React.Component {
   search(event) {
     event.preventDefault();
 
-    let submission = {
-      username: this.state.username.toLowerCase(),
-      name: this.state.name.toLowerCase(),
-      id: this.state.id,
-    };
-    console.log('to be searched:', submission);      
+    
+    let username = this.state.username.toLowerCase();
+    let name = this.state.name.toLowerCase();
+    let id = this.state.id;
+
+    axios.get(`cats/${username}/${name}/${id}`)
+      .then((results) => {
+        console.log('results from query:', results.data);
+        this.props.updateCats(results.data);
+      })
+      .then(() => {
+        this.props.updateView('cat_profiles');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
   }
 
   getRandom() {

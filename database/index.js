@@ -93,15 +93,17 @@ const getUserId = callback => {
   });
 };
 
-        // if not a match, send back err
-// var selectAll = function (callback) {
-//   connection.query('SELECT * FROM items', function (err, results, fields) {
-//     if (err) {
-//       callback(err, null);
-//     } else {
-//       callback(null, results);
-//     }
-//   });
-// };
+const searchCats = (username, name, id, callback) => {
+  const queryStr = 'SELECT * from cats WHERE (username = ?) OR (name = ?) OR (id = ?);';
+  connection.query(queryStr, [username, name, id], (error, results) => {
+    if (error) {
+      callback(error);
+    } else {
+      callback(null, results);
+    }
+  });
+};
 
-module.exports = { addCat, getCatByUsername, updateLastSeenAt, getRandomCat, createSession, findSession, getUserId };
+
+
+module.exports = { addCat, getCatByUsername, updateLastSeenAt, getRandomCat, createSession, findSession, getUserId, searchCats};

@@ -126,6 +126,17 @@ const isAuthenticated = (req, res, next) => {
   });
 }
 
+app.get('/cats/:username/:name/:id', (req, res) => {
+  let {username, name, id} = req.params;
+  
+  db.searchCats(username, name, id, (err, data) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.json(data);
+    }
+  });
+});
 
 app.get('/cats/random', isAuthenticated, (req, res) => {
   db.getRandomCat((err, data) => {
