@@ -160,7 +160,10 @@ h2 {
   padding: .25em;
 }
 
-
+.profileItem {
+  padding: .2 em;
+  width: 20%;
+}
 
 .closeBox {
   background: white;
