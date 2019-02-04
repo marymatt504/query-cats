@@ -44,7 +44,7 @@ app.post('/cat/register', (req, res) => {
   imageUrl = setToNullIfEmpty(imageUrl);
   birthdate = setToNullIfEmpty(birthdate);
   breed = setToNullIfEmpty(breed);
-  
+
   db.addCat(username, password, breed, birthdate, imageUrl, name, weight, (err, results) => {
     if (err) {
       console.log(err);
@@ -73,7 +73,7 @@ app.post('/cat/register', (req, res) => {
 });
 
 app.put('/cat/login', (req, res) => {
-  let {username, password} = req.body;
+  let { username, password } = req.body;
   let sessionToken = req.cookies.cookieName;
 
   // could set up differently... if token is in the session db, don't need to check pw
@@ -126,7 +126,7 @@ const isAuthenticated = (req, res, next) => {
   db.findSession(token, (err, results) => {
     // if does not return a session, redirect to homepage for login
     if (!results.length) {
-      
+
       res.status(401).redirect('/');
     } else {
       return next();
@@ -135,8 +135,8 @@ const isAuthenticated = (req, res, next) => {
 }
 
 app.get('/cats/:username/:name/:id', (req, res) => {
-  let {username, name, id} = req.params;
-  
+  let { username, name, id } = req.params;
+
   db.searchCats(username, name, id, (err, data) => {
     if (err) {
       res.status(500).send('invalid search criteria');
@@ -156,6 +156,6 @@ app.get('/cats/random', isAuthenticated, (req, res) => {
   });
 });
 
-app.listen(3001, function () {
-  console.log('listening on port 3001!');
+app.listen(8081, function () {
+  console.log('listening on port 8081!');
 });
