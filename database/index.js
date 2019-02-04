@@ -5,10 +5,10 @@ const utils = require('./hashUtils.js');
 const mysql = require('mysql');
 
 const connection = mysql.createConnection({
-  // host     : 'fill_In',
-  // port: 'fill_In',
-  user: 'root',
-  // password: db.password,
+  host: 'mydbinstance.cnhrosb7vmjs.us-east-2.rds.amazonaws.com',
+  port: 3306,
+  user: 'marymatt504',
+  password: 'maymay823',
   database: 'query_cats'
 });
 
@@ -106,4 +106,4 @@ const searchCats = (username, name, id, callback) => {
 
 
 
-module.exports = { addCat, getCatByUsername, updateLastSeenAt, getRandomCat, createSession, findSession, getUserId, searchCats};
+module.exports = { addCat, getCatByUsername, updateLastSeenAt, getRandomCat, createSession, findSession, getUserId, searchCats };
