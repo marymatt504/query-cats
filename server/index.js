@@ -119,7 +119,8 @@ const isAuthenticated = (req, res, next) => {
   db.findSession(token, (err, results) => {
     // if does not return a session, redirect to homepage for login
     if (!results.length) {
-      res.redirect('/');
+      
+      res.status(401).redirect('/');
     } else {
       return next();
     }
@@ -131,7 +132,7 @@ app.get('/cats/:username/:name/:id', (req, res) => {
   
   db.searchCats(username, name, id, (err, data) => {
     if (err) {
-      res.sendStatus(500);
+      res.status(500).send('invalid search criteria');
     } else {
       res.json(data);
     }
