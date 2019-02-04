@@ -23,7 +23,6 @@ class Dashboard extends React.Component {
 
   search(event) {
     event.preventDefault();
-
     
     let username = this.state.username.toLowerCase();
     let name = this.state.name.toLowerCase();
@@ -31,7 +30,6 @@ class Dashboard extends React.Component {
 
     axios.get(`cats/${username}/${name}/${id}`)
       .then((results) => {
-        console.log('results from query:', results.data);
         this.props.updateCats(results.data);
       })
       .then(() => {

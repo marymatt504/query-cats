@@ -41,8 +41,6 @@ class Nav extends React.Component {
 
   render() {
 
-    console.log('this.props.view:', this.props.view);
-
     if (this.props.view === 'home') {
       return (
         <div className='navBar'>
